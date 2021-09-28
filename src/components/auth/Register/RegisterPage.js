@@ -8,6 +8,7 @@ class RegisterPage extends Component {
     //створюємо обєкт стейт де описуємо наші поля
     state = {
         Email: '',
+        Phone: '',
         Login: '',
         Password: '',
         ConfirmPassword: '',
@@ -16,6 +17,7 @@ class RegisterPage extends Component {
         // добавляємо обєкт еррори
         errors: {
             Email: "",
+            Phone: "",
             Login: "",
             Password: "",
             ConfirmPassword: "",
@@ -77,6 +79,16 @@ class RegisterPage extends Component {
                             value ={this.state.Email}
                             error= {errors.Email}
                             onChange={this.onChangeHandler}
+                        />
+
+                        <InputTextField //викликали генератор інпута '../../common/InputTextField';
+                            field ="Phone"
+                            label ="Номер телефону"
+                            value ={this.state.Phone}
+                            error= {errors.Phone}
+                            onChange={this.onChangeHandler}
+                            type="number"
+                            placeholder="+38(XXX)-XXX-XX-XX"
                         />
 
                         <InputTextField //викликали генератор інпута '../../common/InputTextField';
