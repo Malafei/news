@@ -1,10 +1,10 @@
 export function validatonFields(items)
 {
     let errors={};
-    const {Email, Password} = items;
-    const regex_email = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+    const {Email, Password} = items;  //оголошуємо потрібні нам поля
+    const regex_email = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/; // регулярний вираз на електронку
 
-    if (!regex_email.test(Email.trim()))
+    if (!regex_email.test(Email.trim())) // перевіряємо пошту на валідність через регулярний вираз
     {
         errors ={
             ...errors,
@@ -12,7 +12,7 @@ export function validatonFields(items)
         }
     } 
 
-    if(Password.trim() == '') 
+    if(Password.trim() == '')   // перевіряємо наш пароль на наявність і кількість символів
     {
         errors= { 
             ...errors, 
@@ -20,5 +20,5 @@ export function validatonFields(items)
         }
     }
 
-    return errors;    
+    return errors;     // повертаємо всі помилки які виявили під час перевірок
 }

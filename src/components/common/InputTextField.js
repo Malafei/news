@@ -2,13 +2,13 @@ import classnames from "classnames";
 import PropTypes from "prop-types";
 
 const InputTextField = ({
-    field,
-    label, 
-    value,
-    error,
-    type,
-    placeholder,
-    onChange
+    field, // імя інпута
+    label, // текст в лейболі
+    value, // поле зі стейта
+    error, // поле помилки до нашого поля
+    type, // тип інпута
+    placeholder, // плейс холдер фоновий текст інпута
+    onChange // функція обробник події змін
 }) => {
     return(
 
@@ -30,17 +30,18 @@ const InputTextField = ({
     );
 };
 
-InputTextField.propTypes = {
-    field: PropTypes.string.isRequired,
+InputTextField.propTypes = { 
+    field: PropTypes.string.isRequired, // встановили типи даних і зробили поля обовязковими
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    error: PropTypes.string,
+    error: PropTypes.string,            // ці ні
+    placeholder: PropTypes.string,
     type: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired
   };
 
   InputTextField.defaultProps = {
-    type: "text",
+    type: "text",               // тут встановили значення по замовчувані
     placeholder: "Введіть дані"
   };
 

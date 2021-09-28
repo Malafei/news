@@ -1,10 +1,10 @@
 export function validatonFields(items)
 {
     let errors={};
-    const {Email, Login, Password, ConfirmPassword} = items;
-    const regex_email = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+    const {Email, Login, Password, ConfirmPassword} = items; //оголошуємо потрібні нам поля
+    const regex_email = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/; // регулярний вираз на електронку
 
-    if (!regex_email.test(Email.trim()))
+    if (!regex_email.test(Email.trim())) // перевіряємо пошту на валідність через регулярний вираз
     {
         errors ={
             ...errors,
@@ -12,31 +12,32 @@ export function validatonFields(items)
         }
     } 
 
-    if(Login.trim() == '') 
+    if(Object.keys(Login).length < 6)  // перевіряємо наш логін на наявність і кількість символів
     {
         errors = {
             ...errors,
-            Login: "Вкажіть коректний логін"
+            Login: "Вкажіть коректний логін (Логін повинен містити мінімум 6 символів)!"
         }
     }
 
-    if(Password.trim() == '') 
+
+    if(Object.keys(Password).length < 8) // перевіряємо наш пароль на наявність і кількість символів 
     {
         errors= { 
             ...errors, 
-            Password: "Вкажіть коректну пароль"
+            Password: "Вкажіть коректний пароль (Пароль повинен містити мінімум 8 символів)!"
         }
     }
 
-    if (ConfirmPassword !== Password)
+    if (ConfirmPassword !== Password) // перевіряємо чи повторення паролю співпадає з паролем
     {
         errors ={
             ...errors,
-            ConfirmPassword: "Повтор паролю не співпадає!"
+            ConfirmPassword: "Паролі не співпадають!"
         }
     }
 
-    if (ConfirmPassword.trim() == '') 
+    if (ConfirmPassword.trim() == '') // перевіряємо повторення паролю на наявність символів 
     {
         errors ={
             ...errors,
@@ -44,5 +45,5 @@ export function validatonFields(items)
         }
     }
 
-    return errors;    
+    return errors;    // повертаємо всі помилки які виявили під час перевірок
 }

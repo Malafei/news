@@ -5,6 +5,7 @@ import {validatonFields} from './Validation';
 
 class RegisterPage extends Component {
 
+    //створюємо обєкт стейт де описуємо наші поля
     state = {
         Email: '',
         Login: '',
@@ -12,6 +13,7 @@ class RegisterPage extends Component {
         ConfirmPassword: '',
         isValidation: false,
 
+        // добавляємо обєкт еррори
         errors: {
             Email: "",
             Login: "",
@@ -20,34 +22,40 @@ class RegisterPage extends Component {
         }
     }
 
+
+    //функція яка викликається під час відправки форми
     onSubmitHandler = (e) => {
+
         e.preventDefault();
-        var errors =validatonFields(this.state);
-        const isValid = Object.keys(errors).length === 0;
-        if (isValid)
+
+        var errors = validatonFields(this.state); //викликаємо валідатор і передаємо стейт from './Validation'
+        const isValid = Object.keys(errors).length === 0;   // створюємо змінну isValid і приводимо її до буля перевіркою чи є в нашому масиві помилки
+                                                            // якщо значення буде не 0 тоді в нас є декілька помилок 
+        if (isValid) // перевіряємо чи значення валідне якщо так тоді відправляємо дані на сервер
         {
-            alert(this.state);
+            alert(this.state); // типу сервер
         }
-        else
+        else // якщо значення не валідні
         {
-            this.setState({errors: errors, isValidation: true});
+            this.setState({errors: errors, isValidation: true}); // рендеримо нашу сторінку знову. І надсилаємо туди наші помилки 
         }
-        //console.log("наш стейт", this.state);
         
     }
+    
+    // функція яку викликає кожен інпут викликається при зміні значень в інпуті
     onChangeHandler = (e) => {
-        const {name, value} = e.target;
-        //console.log(name, value);
-        const {isValidation} = this.state;
-        if(isValidation)
+        const {name, value} = e.target; // витягуємо імя і значення з інпута 
+        const {isValidation} = this.state; // втановюємо значення isValidation (тру якщо форма вже надсилалася)
+
+        if(isValidation) // якщо значення тру
         {
-            const data = {...this.state, [name]: value}
-            const errors = validatonFields(data)
-            this.setState({ [name]: value, errors: errors });
+            const data = {...this.state, [name]: value} // розширяємо наш стейт і присвоюємо значення
+            const errors = validatonFields(data) // надсилаєм дані щоб перевірити валідність тут дані перевіряються динамічно
+            this.setState({ [name]: value, errors: errors }); // повторно рендерим з первіреними даними
         }
         else
         {
-            this.setState({ [name]: value })
+            this.setState({ [name]: value }) // повторно рендерим наш інпут з новим значенням
         }
     }
 
@@ -61,9 +69,9 @@ class RegisterPage extends Component {
             <div className="row">
                 <h1 className="text-center">Реєстрація</h1>
                 <div className="offset-md-3 col-md-6">
-                    <form onSubmit={this.onSubmitHandler}>
+                    <form onSubmit={this.onSubmitHandler}> 
 
-                        <InputTextField
+                        <InputTextField //викликали генератор інпута '../../common/InputTextField';
                             field ="Email"
                             label ="Пошта"
                             value ={this.state.Email}
@@ -71,7 +79,7 @@ class RegisterPage extends Component {
                             onChange={this.onChangeHandler}
                         />
 
-                        <InputTextField
+                        <InputTextField //викликали генератор інпута '../../common/InputTextField';
                             field ="Login"
                             label ="Логін"
                             value ={this.state.Login}
@@ -80,7 +88,7 @@ class RegisterPage extends Component {
                             type="text"
                         />
 
-                        <InputTextField
+                        <InputTextField //викликали генератор інпута '../../common/InputTextField';
                             field ="Password"
                             label ="Пароль"
                             value ={this.state.Password}
@@ -89,7 +97,7 @@ class RegisterPage extends Component {
                             type="password"
                         />
 
-                        <InputTextField
+                        <InputTextField //викликали генератор інпута '../../common/InputTextField';
                             field ="ConfirmPassword"
                             label ="Повторіть пароль"
                             value ={this.state.ConfirmPassword}
