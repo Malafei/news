@@ -13,6 +13,7 @@ class RegisterPage extends Component {
         Password: '',
         ConfirmPassword: '',
         Photo: '',
+        BasePhoto: '',
         isValidation: false,
 
         // добавляємо обєкт еррори
@@ -63,6 +64,33 @@ class RegisterPage extends Component {
     }
 
 
+    onChangePhoto = (e) => {
+        const files = e.target.files;
+        var Photo;
+        if (files && files[0]) { // перевіряємо чи файл обрано
+            const file = files[0]; // присваюємо
+            if (file.type.match(/^image\//)) { // перевіряємо чи тип файлу фото
+                const reader = new FileReader(); // створюємо змінну
+                reader.onload = function () { // після загрузки файлу виконуємо наступний код....
+                    
+                    Photo = reader.result;
+                    console.log(Photo);
+                }
+                reader.readAsDataURL(file); //використовується для читання File. Коли операція закінчиться
+            }
+        }
+        const { isValidation } = this.state; // втановюємо значення isValidation (тру якщо форма вже надсилалася)
+        if (isValidation) // якщо значення тру
+        {
+            const data = { ...this.state, 'Photo': Photo } // розширяємо наш стейт і присвоюємо значення
+            const errors = validatonFields(data) // надсилаєм дані щоб перевірити валідність тут дані перевіряються динамічно
+            this.setState({ 'Photo': Photo, errors: errors }); // повторно рендерим з первіреними даними
+        }
+        else {
+            this.setState({ 'Photo': Photo }) // повторно рендерим наш інпут з новим значенням
+            this.setState({ 'PhotoBase': Photo })
+        }
+    }
 
 
     render() {
@@ -119,8 +147,8 @@ class RegisterPage extends Component {
                         />
 
                         <div className="mb-3">
-                            <img src={this.state.Photo} alt="Твоє фото"></img>
-                            
+                            <img src={this.state.BasePhoto} id="PhotoBase" name="PhotoBase" alt="Твоє фото"></img>
+
                             <input type="file"
                                 className={classnames("form-control",
                                     { "is-invalid": errors.Photo },
@@ -129,7 +157,7 @@ class RegisterPage extends Component {
                                 id="Photo"
                                 name="Photo"
                                 value={this.state.Photo}
-                                onChange={this.onChangeHandler}
+                                onChange={this.onChangePhoto}
                                 placeholder="Натисніть для вибору фото"
                             />
                             {!!errors.Photo && <div className="invalid-feedback">{errors.Photo}</div>}
