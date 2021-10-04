@@ -7,6 +7,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import HomePage from "./components/home";
 
 function App() {
   return (
@@ -14,12 +15,19 @@ function App() {
       <Navbar/>
       <div className="container">
         <Switch>
+
+          <Route exact path="/"> 
+            <HomePage/>
+          </Route>
+
           <Route exact path="/login"> 
             <LoginPage/>
           </Route>
+
           <Route exact path= "/register">
             <RegisterPage/>
           </Route>
+          
         </Switch>
       </div>
     </Router>
