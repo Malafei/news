@@ -24,6 +24,8 @@ const RegisterPage=() => {
     //функція яка викликається під час події он сабміт (умовно відправляє дані на сервер)
     const onSubmitHandler=(values) =>
     {
+
+        
         console.log("Server submit data", values);
         console.log("Server submit file", JSON.stringify(
             { 

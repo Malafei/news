@@ -16,6 +16,8 @@ const MyPhotoInput = ({ formikRef, ...props }) => {
         setPhoto(URL.createObjectURL(FILE_OBJECT));
         
         formikRef.current.setFieldValue(props.id, FILE_OBJECT);
+
+        
     }
 
     return (

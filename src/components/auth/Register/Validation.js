@@ -27,8 +27,9 @@ const validationFields= () => {
 
 
         Photo: Yup.mixed()
-            .required('Добавте фото'), // перевірка чи поле не пусте
-        
+            .required('Добавте фото') // перевірка чи поле не пусте
+            .test('fileSize', "Файл завеликий", value => ((value.size / 1024) / 1024) <= 10) // перевірка чи хайл не більше 10 мб
+            .test('fileType', "Потрібно вибрати фото", value => value.type.match(/^image\//)), // перевірка чи файт фото
     });
 }
 export default validationFields;
