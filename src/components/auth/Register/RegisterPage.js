@@ -3,6 +3,8 @@ import validatonFields from './Validation';
 import {Formik, Form} from 'formik';
 import MyTextInput from "../../common/MyTextInput";
 import MyPhotoInput from '../../common/MyPhotoInput';
+import http from "../../../http_common"
+import { object } from 'prop-types';
 
 
 const RegisterPage=() => {
@@ -24,18 +26,28 @@ const RegisterPage=() => {
     //функція яка викликається під час події он сабміт (умовно відправляє дані на сервер)
     const onSubmitHandler=(values) =>
     {
+        const formData = new FormData();
+        Object.entries(values).forEach
+        (
+            ([key, value]) => formData.append(key, value)
+        );
 
-        
-        console.log("Server submit data", values);
-        console.log("Server submit file", JSON.stringify(
-            { 
-              fileName: values.photo.name, 
-              type: values.photo.type,
-              size: `${values.photo.size} bytes`
-            },
-            null,
-            2
-          ));
+        http.post("api/acount/register", formData,
+        {
+            headers:{
+                'Content-Type' : 'multipart/form-data'
+            }
+        });
+        // console.log("Server submit data", values);
+        // console.log("Server submit file", JSON.stringify(
+        //     { 
+        //       fileName: values.photo.name, 
+        //       type: values.photo.type,
+        //       size: `${values.photo.size} bytes`
+        //     },
+        //     null,
+        //     2
+        //   ));
     }
 
 
@@ -95,9 +107,9 @@ const RegisterPage=() => {
 
                     {/* /common/MyPhotoInput */}
                     <MyPhotoInput
+                        Myfield = "Photo"
                         name = "Photo"
-                        type = "file"
-                        id = "Photo"
+                        id= "Photo"
                         formikRef={formikRef}
                     />
 
